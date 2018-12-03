@@ -14,5 +14,5 @@ WORKDIR  /app
 # RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
 COPY --from=builder /go/src/bitbucket.org/revenuemonster/kubernetes-example-gateway /app
 # Container Environment
-ENV SYSTEM_NAME 'hello world'
+ENV SYSTEM_NAME 'hello world, this is new world'
 ENTRYPOINT ./kubernetes-example-gateway
