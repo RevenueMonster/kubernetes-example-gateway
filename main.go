@@ -21,6 +21,7 @@ func main() {
 			"hostname":    os.Getenv("HOSTNAME"),
 			"message":     os.Getenv("SYSTEM_NAME"),
 			"description": podDescription,
+			"debug":       "test",
 		})
 	})
 
