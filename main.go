@@ -41,5 +41,9 @@ func main() {
 		})
 	})
 
+	e.GET("/secret", func(c echo.Context) error {
+		return c.String(200, os.Getenv("SECRET"))
+	})
+
 	e.Logger.Fatal(e.Start(":5000"))
 }
