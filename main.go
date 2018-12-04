@@ -42,7 +42,17 @@ func main() {
 	})
 
 	e.GET("/secret", func(c echo.Context) error {
-		return c.String(200, os.Getenv("SECRET_KEY"))
+
+		return c.JSON(200, map[string]interface{}{
+			"message": os.Getenv("SECRET_KEY"),
+		})
+	})
+
+	e.GET("/configmap", func(c echo.Context) error {
+
+		return c.JSON(200, map[string]interface{}{
+			"message": os.Getenv("ENV"),
+		})
 	})
 
 	e.Logger.Fatal(e.Start(":5000"))
