@@ -42,7 +42,7 @@ func main() {
 	})
 
 	e.GET("/secret", func(c echo.Context) error {
-		return c.String(200, os.Getenv("SECRET"))
+		return c.String(200, os.Getenv("SECRET_KEY"))
 	})
 
 	e.Logger.Fatal(e.Start(":5000"))
