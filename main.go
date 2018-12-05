@@ -62,11 +62,13 @@ func main() {
 			time.Sleep(10 * time.Second)
 
 			return c.JSON(200, map[string]interface{}{
+				"pod":     os.Getenv("HOSTNAME"),
 				"message": "sleep 10 second",
 			})
 		}
 
 		return c.JSON(200, map[string]interface{}{
+			"pod":     os.Getenv("HOSTNAME"),
 			"message": "no sleep",
 		})
 	})
