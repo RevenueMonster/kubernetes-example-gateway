@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
@@ -23,7 +24,6 @@ func main() {
 	})
 
 	e.GET("/helloworld", func(c echo.Context) error {
-
 		response, err := http.Get("http://rm-service")
 		if err != nil {
 			return c.JSON(500, map[string]interface{}{
@@ -55,6 +55,14 @@ func main() {
 
 		return c.JSON(200, map[string]interface{}{
 			"message": os.Getenv("ENV"),
+		})
+	})
+
+	e.GET("/sleep", func(c echo.Context) error {
+		time.Sleep(10 * time.Second)
+
+		return c.JSON(200, map[string]interface{}{
+			"message": "sleep 10 second",
 		})
 	})
 
