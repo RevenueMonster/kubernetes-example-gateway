@@ -58,7 +58,9 @@ func main() {
 	})
 
 	e.GET("/sleep", func(c echo.Context) error {
-		time.Sleep(10 * time.Second)
+		if c.QueryParam("isSleep") == "true" {
+			time.Sleep(10 * time.Second)
+		}
 
 		return c.JSON(200, map[string]interface{}{
 			"message": "sleep 10 second",
