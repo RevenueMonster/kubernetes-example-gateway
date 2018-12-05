@@ -17,8 +17,8 @@ func main() {
 	e.GET("/", func(c echo.Context) error {
 
 		return c.JSON(200, map[string]interface{}{
-			"hostname": os.Getenv("HOSTNAME"),
-			"message":  os.Getenv("SYSTEM_NAME"),
+			"pod":     os.Getenv("HOSTNAME"),
+			"message": os.Getenv("SYSTEM_NAME"),
 		})
 	})
 
@@ -60,10 +60,14 @@ func main() {
 	e.GET("/sleep", func(c echo.Context) error {
 		if c.QueryParam("isSleep") == "true" {
 			time.Sleep(10 * time.Second)
+
+			return c.JSON(200, map[string]interface{}{
+				"message": "sleep 10 second",
+			})
 		}
 
 		return c.JSON(200, map[string]interface{}{
-			"message": "sleep 10 second",
+			"message": "no sleep",
 		})
 	})
 
