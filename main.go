@@ -56,10 +56,10 @@ func main() {
 	})
 
 	e.GET("/panic", func(c echo.Context) error {
-		panic("server panic")
-		// return c.JSON(200, map[string]interface{}{
-		// 	"message": "panic",
-		// })
+		os.Exit(200)
+		return c.JSON(200, map[string]interface{}{
+			"message": "exit",
+		})
 	})
 
 	e.Logger.Fatal(e.Start(":5000"))
