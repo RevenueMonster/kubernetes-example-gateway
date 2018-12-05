@@ -6,6 +6,7 @@ WORKDIR  /go/src/bitbucket.org/revenuemonster
 ADD . /go/src/bitbucket.org/revenuemonster
 # Install Dependencies
 RUN go get github.com/labstack/echo
+RUN go get github.com/dgrijalva/jwt-go
 RUN make
 
 FROM alpine
