@@ -2,6 +2,7 @@ package main
 
 import (
 	"io/ioutil"
+	"log"
 	"net/http"
 	"os"
 
@@ -58,7 +59,7 @@ func main() {
 	})
 
 	e.GET("/panic", func(c echo.Context) error {
-		os.Exit(200)
+		log.Fatal("panic")
 		return c.JSON(200, map[string]interface{}{
 			"message": "exit",
 		})
