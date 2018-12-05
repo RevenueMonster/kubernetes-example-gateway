@@ -2,9 +2,9 @@ package main
 
 import (
 	"io/ioutil"
-	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
@@ -57,8 +57,8 @@ func main() {
 		})
 	})
 
-	e.GET("/panic", func(c echo.Context) error {
-		log.Fatal("panic")
+	e.GET("/sleep", func(c echo.Context) error {
+		time.Sleep(10 * time.Second)
 
 		return c.JSON(200, map[string]interface{}{
 			"message": "sleep 10 second",
