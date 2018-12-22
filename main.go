@@ -2,10 +2,12 @@ package main
 
 import (
 	"io/ioutil"
+	"log"
 	"net/http"
 	"os"
 	"time"
 
+	"github.com/go-redis/redis"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 )
@@ -70,6 +72,38 @@ func main() {
 		return c.JSON(200, map[string]interface{}{
 			"pod":     os.Getenv("HOSTNAME"),
 			"message": "no sleep",
+		})
+	})
+
+	e.GET("/panic", func(c echo.Context) error {
+		log.Println("hostname: ", os.Getenv("HOSTNAME"))
+
+		panic("here")
+
+		return c.JSON(200, map[string]interface{}{
+			"message":    os.Getenv("HOSTNAME"),
+			"currentPod": os.Getenv("HOSTNAME"),
+		})
+	})
+
+	e.GET("/reset", func(c echo.Context) error {
+		client := redis.NewClient(&redis.Options{
+			Addr:     "rm-redis:6379",
+			Password: "", // no password set
+			DB:       0,  // use default DB
+		})
+
+		_, err := client.Ping().Result()
+		if err != nil {
+			return c.JSON(500, map[string]interface{}{
+				"error": err.Error(),
+			})
+		}
+
+		client.Del("RM_COUNT").Err()
+
+		return c.JSON(200, map[string]interface{}{
+			"message": "Reset the redis count to 0",
 		})
 	})
 
